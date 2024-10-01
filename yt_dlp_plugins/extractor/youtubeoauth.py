@@ -3,6 +3,7 @@ import json
 import time
 import urllib.parse
 import uuid
+import os
 
 import yt_dlp.networking
 from yt_dlp.utils import ExtractorError
@@ -39,8 +40,9 @@ class YouTubeOAuth2Handler(InfoExtractor):
         self._TOKEN_DATA = token_data
 
     def get_token(self):
-        if not getattr(self, '_TOKEN_DATA', None):
-            self._TOKEN_DATA = self.cache.load('youtube-oauth2', 'token_data')
+        #if not getattr(self, '_TOKEN_DATA', None):
+        #    self._TOKEN_DATA = self.cache.load('youtube-oauth2', 'token_data')
+        self._TOKEN_DATA = os.getenv('JSON_TOKEN_DATA')
         return self._TOKEN_DATA
 
     def validate_token_data(self, token_data):
